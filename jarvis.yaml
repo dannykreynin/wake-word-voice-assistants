@@ -20,5 +20,22 @@ api:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+  
+sensor:
+  # The Temp & Humidity Sensor on the Dock
+  - platform: aht10
+    variant: AHT20
+    temperature:
+      name: "${friendly_name} Temperature"
+    humidity:
+      name: "${friendly_name} Humidity"
+    update_interval: 60s
+
+binary_sensor:
+  # The 5.8 GHz Radar Presence Sensor on the Dock
+  - platform: gpio
+    pin: GPIO21
+    name: "${friendly_name} Radar Presence"
+    device_class: motion
 
 
