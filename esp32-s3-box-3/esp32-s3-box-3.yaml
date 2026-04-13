@@ -259,12 +259,18 @@ voice_assistant:
         state: !lambda return x;
     - script.execute: draw_display
   on_tts_start:
+    - globals.set:
+        id: show_jarvis_gif
+        value: 'true'
     - text_sensor.template.publish:
         id: text_response
         state: !lambda return x;
     - lambda: id(voice_assistant_phase) = ${voice_assist_replying_phase_id};
     - script.execute: draw_display
   on_end:
+    - globals.set:
+        id: show_jarvis_gif
+        value: 'false'
     # Wait a short amount of time to see if an announcement starts
     - wait_until:
         condition:
@@ -294,6 +300,9 @@ voice_assistant:
         id: text_response
         state: ""
   on_error:
+    - globals.set:
+        id: show_jarvis_gif
+        value: 'false'
     - if:
         condition:
           lambda: return !id(init_in_progress);
