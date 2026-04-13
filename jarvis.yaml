@@ -43,16 +43,17 @@ animation:
   - file: "jarvis_logo.gif"
     id: jarvis_anim
     type: RGB565
-
-# 2. THE ACTION
-# Now that ESPHome knows what jarvis_anim is, we can tell the screen to draw it.
-display:
-  - id: !extend s3_box_lcd
-    lambda: |-
-      if (id(show_jarvis_gif)) {
-        it.image(100, 60, id(jarvis_anim));
-        id(jarvis_anim).next_frame();
-      }
+    
+interval:
+  # Runs every 100ms (10 fps)
+  - interval: 100ms
+    condition:
+      # Only runs if Jarvis is actively talking
+      - globals.is_true: show_jarvis_gif
+    then:
+      # Advance the GIF frame and force the screen to redraw
+      - lambda: id(jarvis_anim).next_frame();
+      - component.update: s3_box_lcd
 
 binary_sensor:
   # The 5.8 GHz Radar Presence Sensor on the Dock
