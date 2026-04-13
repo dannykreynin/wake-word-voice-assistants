@@ -38,6 +38,21 @@ sensor:
     humidity:
       name: "${friendly_name} Humidity"
     update_interval: 60s
+    
+animation:
+  - file: "jarvis_logo.gif"
+    id: jarvis_anim
+    type: RGB565
+
+# 2. THE ACTION
+# Now that ESPHome knows what jarvis_anim is, we can tell the screen to draw it.
+display:
+  - id: !extend s3_box_lcd
+    lambda: |-
+      if (id(show_jarvis_gif)) {
+        it.image(100, 60, id(jarvis_anim));
+        id(jarvis_anim).next_frame();
+      }
 
 binary_sensor:
   # The 5.8 GHz Radar Presence Sensor on the Dock
@@ -46,6 +61,7 @@ binary_sensor:
     name: "${friendly_name} Radar Presence"
     device_class: motion
 
+# --- THE SWITCH ---
 globals:
   # This creates a boolean (true/false) switch starting in the OFF state
   - id: show_jarvis_gif
