@@ -48,12 +48,12 @@ animation:
 interval:
   - interval: 100ms
     then:
-      - if:
-          condition:
-            - globals.is_true: show_jarvis_gif
-          then:
-            - lambda: id(jarvis_anim).next_frame();
-            - component.update: s3_box_lcd
+      - lambda: |-
+          // Pure C++ logic, completely bypassing ESPHome YAML conditions
+          if (id(show_jarvis_gif)) {
+            id(jarvis_anim).next_frame();
+            id(s3_box_lcd).update();
+          }
 binary_sensor:
   # The 5.8 GHz Radar Presence Sensor on the Dock
   - platform: gpio
