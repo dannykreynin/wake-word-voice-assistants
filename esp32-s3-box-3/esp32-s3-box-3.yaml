@@ -226,9 +226,9 @@ media_player:
 micro_wake_word:
   id: mww
   models:
-     # - okay_nabu
-     # - hey_mycroft
-    - hey_jarvis
+    - model: github://esphome/micro-wake-word-models/models/hey_jarvis.json@main
+      # You can tweak this cutoff later if he is too deaf or too sensitive
+      probability_cutoff: 0.80
   on_wake_word_detected:
     - voice_assistant.start:
         wake_word: !lambda return wake_word;
