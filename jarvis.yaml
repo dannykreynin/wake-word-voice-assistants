@@ -48,12 +48,16 @@ animation:
 interval:
   - interval: 100ms
     then:
-      - lambda: |-
-          // Pure C++ logic, completely bypassing ESPHome YAML conditions
-          if (id(show_jarvis_gif)) {
-            id(jarvis_anim).next_frame();
-            id(s3_box_lcd).update();
-          }
+      - if:
+          condition:
+            # VERIFIED: The official way to check a global boolean
+            - lambda: 'return id(show_jarvis_gif);'
+          then:
+            # VERIFIED: The native action to advance a GIF frame
+            - animation.next_frame: jarvis_anim
+            # VERIFIED: The native action to force a display to redraw
+            - component.update: s3_box_lcd
+          
 binary_sensor:
   # The 5.8 GHz Radar Presence Sensor on the Dock
   - platform: gpio
