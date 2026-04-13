@@ -46,4 +46,18 @@ binary_sensor:
     name: "${friendly_name} Radar Presence"
     device_class: motion
 
+animation:
+  - file: "jarvis_logo.gif"
+    id: jarvis_anim
+    type: RGB565  # Forces 16-bit color to save crucial Flash memory
 
+# 2. Tell the screen exactly where and how to draw it
+display:
+  - platform: ili9xxx
+    id: !extend my_display  # Extends the existing screen from the base package
+    lambda: |-
+      # Draw the image in the center of the screen (adjust X: 100, Y: 60 to center it based on your GIF size)
+      it.image(100, 60, id(jarvis_anim));
+      
+      # Tell the animation to move to the next frame every time the screen refreshes
+      id(jarvis_anim).next_frame();
