@@ -44,17 +44,16 @@ animation:
     id: jarvis_anim
     type: RGB565
     
+# --- ANIMATION MOTOR ---
 interval:
-  # Runs every 100ms (10 fps)
   - interval: 100ms
-    condition:
-      # Only runs if Jarvis is actively talking
-      - globals.is_true: show_jarvis_gif
     then:
-      # Advance the GIF frame and force the screen to redraw
-      - lambda: id(jarvis_anim).next_frame();
-      - component.update: s3_box_lcd
-
+      - if:
+          condition:
+            - globals.is_true: show_jarvis_gif
+          then:
+            - lambda: id(jarvis_anim).next_frame();
+            - component.update: s3_box_lcd
 binary_sensor:
   # The 5.8 GHz Radar Presence Sensor on the Dock
   - platform: gpio
