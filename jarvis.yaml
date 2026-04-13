@@ -20,11 +20,19 @@ api:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  
+
+
+i2c:
+  - id: bus_dock
+    sda: GPIO41
+    scl: GPIO40
+    scan: true
+    
 sensor:
   # The Temp & Humidity Sensor on the Dock
   - platform: aht10
     variant: AHT20
+    i2c_id: bus_dock  # Forces the sensor to use the dock pins!
     temperature:
       name: "${friendly_name} Temperature"
     humidity:
