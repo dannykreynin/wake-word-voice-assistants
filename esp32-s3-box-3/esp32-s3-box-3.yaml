@@ -811,7 +811,9 @@ display:
       - id: replying_page
         lambda: |-
           it.fill(id(replying_color));
-          it.image((it.get_width() / 2), (it.get_height() / 2), id(casita_replying), ImageAlign::CENTER);
+          # --- WE SWAPPED THE IMAGE ID HERE ---
+          it.image((it.get_width() / 2), (it.get_height() / 2), id(jarvis_anim), ImageAlign::CENTER);
+          # ------------------------------------
           it.filled_rectangle(20 , 20 , 280 , 30 , Color::WHITE );
           it.rectangle(20 , 20 , 280 , 30 , Color::BLACK );
           it.filled_rectangle(20 , 190 , 280 , 30 , Color::WHITE );
