@@ -226,8 +226,8 @@ media_player:
 micro_wake_word:
   id: mww
   models:
-    - okay_nabu
-    - hey_mycroft
+     # - okay_nabu
+     # - hey_mycroft
     - hey_jarvis
   on_wake_word_detected:
     - voice_assistant.start:
