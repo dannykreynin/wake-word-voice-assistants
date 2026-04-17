@@ -76,6 +76,9 @@ binary_sensor:
     pin: GPIO21
     name: "${friendly_name} Radar Presence"
     device_class: motion
+    filters:
+      # HAL will keep blinking for 15 seconds after you leave or sit perfectly still
+      - delayed_off: 60s
 
 # --- THE SWITCH ---
 globals:
