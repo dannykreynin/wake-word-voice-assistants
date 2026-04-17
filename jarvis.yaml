@@ -43,7 +43,7 @@ animation:
   - file: "jarvis_logo.gif"
     id: jarvis_anim
     type: RGB565
-  - file: "hal-listn.gif"
+  - file: "hal-listn-tiny.gif"
     id: hal_anim
     type: RGB565
     
