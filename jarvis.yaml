@@ -43,6 +43,9 @@ animation:
   - file: "jarvis_logo.gif"
     id: jarvis_anim
     type: RGB565
+  - file: "hal-listn.gif"
+    id: hal_anim
+    type: RGB565
     
 # --- ANIMATION MOTOR ---
 interval:
@@ -56,6 +59,15 @@ interval:
             # VERIFIED: The native action to advance a GIF frame
             - animation.next_frame: jarvis_anim
             # VERIFIED: The native action to force a display to redraw
+            - component.update: s3_box_lcd
+  - interval: 100ms
+    then:
+      - if:
+          condition:
+            # Only run this if the assistant is actively listening
+            - lambda: 'return id(voice_assistant_phase) == ${voice_assist_listening_phase_id};'
+          then:
+            - animation.next_frame: hal_anim
             - component.update: s3_box_lcd
           
 binary_sensor:
